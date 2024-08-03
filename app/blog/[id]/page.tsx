@@ -41,13 +41,17 @@ export default async function Page({ params }: { params: { id: string } }) {
 
             <BlogContent blogId={blog.id} />
 
-            <div id="cusdis_thread"
-                data-host="https://cusdis.com"
-                data-app-id="69d68d15-cbfe-42d1-a655-731d7509f4e5"
-                data-page-id={params.id}
-                data-page-url={pageUrl}
-                data-page-title={pageTitle}
-            ></div>
+          <div className="px-4 sm:px-0">
+                <div
+                    id="cusdis_thread"
+                    data-host="https://cusdis.com"
+                    data-app-id="69d68d15-cbfe-42d1-a655-731d7509f4e5"
+                    data-page-id={params.id}
+                    data-page-url={pageUrl}
+                    data-page-title={pageTitle}
+                    className="w-full bg-black text-gray-300"
+                ></div>
+            </div>
 
             <Script
                 src="https://cusdis.com/js/cusdis.es.js"
