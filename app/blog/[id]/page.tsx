@@ -1,8 +1,8 @@
-"use client";
 import { IBlog } from '@/lib/types';
-import React, { useEffect } from 'react';
+import React from 'react';
 import Image from "next/image";
 import BlogContent from './components/BlogContent';
+import Script from 'next/script';
 
 export default async function Page({ params }: { params: { id: string } }) {
     let blog: IBlog | null = null;
@@ -20,19 +20,6 @@ export default async function Page({ params }: { params: { id: string } }) {
 
     const pageUrl = `${process.env.SITE_URL}/blog/${params.id}`;
     const pageTitle = blog.title;
-
-    useEffect(() => {
-        // Load Cusdis script
-        const script = document.createElement('script');
-        script.src = "https://cusdis.com/js/cusdis.es.js";
-        script.async = true;
-        script.defer = true;
-        document.body.appendChild(script);
-
-        return () => {
-            document.body.removeChild(script);
-        };
-    }, []);
 
     return (
         <div className="max-w-5xl mx-auto min-h-screen pt-10 space-y-10">
@@ -61,6 +48,11 @@ export default async function Page({ params }: { params: { id: string } }) {
                 data-page-url={pageUrl}
                 data-page-title={pageTitle}
             ></div>
+
+            <Script
+                src="https://cusdis.com/js/cusdis.es.js"
+                strategy="afterInteractive"
+            />
         </div>
     );
-           }
+}
