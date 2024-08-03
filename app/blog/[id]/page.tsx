@@ -1,3 +1,4 @@
+"use client";
 import { IBlog } from '@/lib/types';
 import React, { useEffect } from 'react';
 import Image from "next/image";
