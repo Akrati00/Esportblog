@@ -6,48 +6,33 @@ import Script from 'next/script';
 
 import { createClient } from '@supabase/supabase-js';
 
-const supabase = createClient('https://urxwxscupryaljaxqpcc.supabase.co', 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6InVyeHd4c2N1cHJ5YWxqYXhxcGNjIiwicm9sZSI6ImFub24iLCJpYXQiOjE3MjIxOTIyMTcsImV4cCI6MjAzNzc2ODIxN30.niE1rxErHOyhiphHwQHnN0Lmtv1tRMZx_ReIzlzc_CM');
+export async function generateStaticParams(){
+    const {data:blog}= (await fetch(process.env.SITE_URL + "/api/blog?id=" + "*").then((res) => res.json()));
+    return blog;
+}
 
-async function getBlogDetail(blogId: string): Promise<IBlogDetail | null> {
-    const { data: blog, error: blogError } = await supabase
-        .from('blog')
-        .select('*, blog_content(*), blog_tags(*), tags(*), blog_categories(*), categories(*)')
-        .eq('id', blogId)
-        .single();
-
-    if (blogError) {
-        console.error(blogError);
-        return null;
-    }
-
-    const tags = blog.blog_tags.map((item: any) => item.tags);
-    const categories = blog.blog_categories.map((item: any) => item.categories);
+export async function generateMetadata({params}:{params:{id:string}}){
+    const {data:blog}= (await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json())) as {data: IBlog};
 
     return {
-        ...blog,
-        tags,
-        categories,
-    };
-}
-async function addTagToBlog(blogId: string, tagId: number) {
-    const { error } = await supabase
-        .from('blog_tags')
-        .insert([{ blog_id: blogId, tag_id: tagId }]);
+        title:blog?.title,
+        authors:{
+            name:"Esport Blog"
+        },
+        openGraph:{
+            title:blog?.title,
+            url:process.env.SITE_URL + "/blog/" + params.id,
+            siteName:"Daily blog",
+            images:blog?.image_url,
+            type:"website"
 
-    if (error) {
-        console.error(error);
+        },
+        keywords:['Esports',"Sports Blog"]
     }
+
 }
 
-async function addCategoryToBlog(blogId: string, categoryId: number) {
-    const { error } = await supabase
-        .from('blog_categories')
-        .insert([{ blog_id: blogId, category_id: categoryId }]);
 
-    if (error) {
-        console.error(error);
-    }
-}
 
 
 export default async function Page({ params }: { params: { id: string } }) {
