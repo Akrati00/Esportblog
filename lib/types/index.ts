@@ -10,6 +10,7 @@ export type IBlogDetail = {
             content:string;
             created_at:string;
         } | null;
+        
 
 } | null;
 
@@ -21,6 +22,7 @@ export type IBlog = {
         is_premium:boolean;
         is_published:boolean;
         title:string;
+        description?: string;
        
 
 } | null;

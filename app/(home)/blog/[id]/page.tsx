@@ -7,12 +7,12 @@ import Script from 'next/script';
 import { createClient } from '@supabase/supabase-js';
 
 export async function generateStaticParams(){
-    const {data:blog}= (await fetch(process.env.SITE_URL + "/api/blog?id=" + "*").then((res) => res.json()));
+    const {data:blog}= (await fetch(`${process.env.SITE_URL}/api/blog?id=*`).then((res) => res.json()));
     return blog;
 }
 
 export async function generateMetadata({params}:{params:{id:string}}){
-    const {data:blog}= (await fetch(process.env.SITE_URL + "/api/blog?id=" + params.id).then((res) => res.json())) as {data: IBlog};
+    const {data:blog}= (await fetch(`${process.env.SITE_URL}/api/blog?id=${params.id}`).then((res) => res.json())) as {data: IBlog};
 
     return {
         title:blog?.title,
@@ -21,19 +21,19 @@ export async function generateMetadata({params}:{params:{id:string}}){
         },
         openGraph:{
             title:blog?.title,
-            url:process.env.PROD_URL + "/blog/" + params.id,
+            url:`${process.env.PROD_URL}/blog/${params.id}`,
             siteName:"Esports blog",
-            images:blog?.image_url,
+            images:[
+                {
+                    url: blog?.image_url,
+                },
+            ],
             type:"website"
-
         },
-        keywords:['Esports',"Sports Blog"]
+        keywords:['Esports',"Sports Blog"],
+        description: blog?.description || "Default description here" 
     }
-
 }
-
-
-
 
 export default async function Page({ params }: { params: { id: string } }) {
     let blog: IBlog | null = null;
@@ -72,24 +72,19 @@ export default async function Page({ params }: { params: { id: string } }) {
 
             <BlogContent blogId={blog.id} />
 
-           
-         
-        <div
-          id="cusdis_thread"
-          data-host="https://cusdis.com"
-          data-app-id="69d68d15-cbfe-42d1-a655-731d7509f4e5"
-          data-page-id={params.id}
-          data-page-url={`http://localhost:3000/blog/${params.id}`}
-          data-page-title="Blog Post Title"
-          
-        ></div>
-     
-     
+            <div
+              id="cusdis_thread"
+              data-host="https://cusdis.com"
+              data-app-id="69d68d15-cbfe-42d1-a655-731d7509f4e5"
+              data-page-id={params.id}
+              data-page-url={`http://localhost:3000/blog/${params.id}`}
+              data-page-title={pageTitle}
+            ></div>
+
             <Script
                 src="/custom-cusdis.js"
                 strategy="afterInteractive"
             />
         </div>
     );
-    // c35ca739-0c3f-4308-8196-200b32d0f971
 }

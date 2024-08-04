@@ -20,12 +20,15 @@ export const metadata: Metadata = {
     title: "Esports Blog",
     url: process.env.SITE_URL,
     siteName: "Esports Blog",
-    images: `${process.env.SITE_URL}/og.png`, // Use absolute URL
+    images: [
+      {
+        url: `${process.env.SITE_URL}/og.png`,
+      },
+    ],
     type: "website",
   },
   keywords: ["Esports", "Sports Blog"],
 };
-
 
 export default function RootLayout({
   children,
