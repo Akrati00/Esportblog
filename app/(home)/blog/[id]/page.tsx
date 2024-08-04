@@ -25,7 +25,7 @@ export async function generateMetadata({params}:{params:{id:string}}){
             siteName:"Esports blog",
             images:[
                 {
-                    url: blog?.image_url,
+                    url: `${process.env.SITE_URL}/og.png`,
                 },
             ],
             type:"website"
