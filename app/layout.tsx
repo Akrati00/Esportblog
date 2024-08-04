@@ -12,20 +12,20 @@ const inter = Inter({ subsets: ["latin"] });
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL!),
   title: {
-    template:"%s | Esports Blog",
-    default:"Esports Blog"
+    template: "%s | Esports Blog",
+    default: "Esports Blog",
   },
   description: "Stay updated with the latest news, tournaments, and strategies in the world of esports. Discover player profiles, game reviews, and industry insights at Esports Blog.",
-  openGraph:{
-    title:"Esports Blog",
-    url:process.env.SITE_URL,
-    siteName:"Esports Blog",
-    images:"/og.png",
-    type:"website"
-
-},
-keywords:['Esports',"Sports Blog"]
+  openGraph: {
+    title: "Esports Blog",
+    url: process.env.SITE_URL,
+    siteName: "Esports Blog",
+    images: `${process.env.SITE_URL}/og.png`, // Use absolute URL
+    type: "website",
+  },
+  keywords: ["Esports", "Sports Blog"],
 };
+
 
 export default function RootLayout({
   children,
