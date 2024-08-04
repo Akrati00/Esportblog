@@ -21,7 +21,7 @@ export async function generateMetadata({params}:{params:{id:string}}){
         },
         openGraph:{
             title:blog?.title,
-            url:process.env.SITE_URL + "/blog/" + params.id,
+            url:process.env.PROD_URL + "/blog/" + params.id,
             siteName:"Esports blog",
             images:blog?.image_url,
             type:"website"
@@ -49,7 +49,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         return <h1>Not found</h1>;
     }
 
-    const pageUrl = `${process.env.SITE_URL}/blog/${params.id}`;
+    const pageUrl = `${process.env.PROD_URL}/blog/${params.id}`;
     const pageTitle = blog.title;
 
     return (
