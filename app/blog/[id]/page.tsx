@@ -54,7 +54,7 @@ export default async function Page({ params }: { params: { id: string } }) {
             </div>
 
             <Script
-                src="https://cusdis.com/js/cusdis.es.js"
+                src="/custom-cusdis.js"
                 strategy="afterInteractive"
             />
         </div>
