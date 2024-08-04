@@ -9,6 +9,8 @@ import { Toaster } from "../components/ui/toaster";
 
 const inter = Inter({ subsets: ["latin"] });
 
+
+
 export const metadata: Metadata = {
   metadataBase: new URL(process.env.SITE_URL!),
   title: {
@@ -18,7 +20,7 @@ export const metadata: Metadata = {
   description: "Stay updated with the latest news, tournaments, and strategies in the world of esports. Discover player profiles, game reviews, and industry insights at Esports Blog.",
   openGraph: {
     title: "Esports Blog",
-    url: process.env.SITE_URL,
+    url: process.env.SITE_URL!,
     siteName: "Esports Blog",
     images: [
       {
@@ -29,6 +31,7 @@ export const metadata: Metadata = {
   },
   keywords: ["Esports", "Sports Blog"],
 };
+
 
 export default function RootLayout({
   children,
