@@ -13,30 +13,30 @@ export async function generateStaticParams(){
 
 import { Metadata } from 'next';
 
-export async function generateMetadata({ params }: { params: { id: string } }): Promise<Metadata> {
-    const response = await fetch(`${process.env.SITE_URL}/api/blog?id=${params.id}`);
-    const { data: blog } = await response.json() as { data: IBlog };
+export async function generateMetadata({params}:{params:{id:string}}){
+    const {data:blog}= (await fetch(`${process.env.SITE_URL}/api/blog?id=${params.id}`).then((res) => res.json())) as {data: IBlog};
 
     return {
-        title: blog?.title || "Default Title",
+        title: blog?.title,
         authors: {
-            name: "Esport Blog"
+            name: "Esports Blog"
         },
         openGraph: {
-            title: blog?.title || "Default Title",
+            title: blog?.title,
             url: `${process.env.SITE_URL}/blog/${params.id}`,
             siteName: "Esports Blog",
             images: [
                 {
-                    url: `${process.env.SITE_URL}/og.png`,
+                    url: blog?.image_url || '/default-image.png',
                 },
             ],
             type: "website"
         },
-        keywords: ['Esports', "Sports Blog"],
-        description: blog?.description || "Default description here",
-    };
+        keywords: ['Esports', 'Sports Blog'],
+        description: blog?.description || "Default description here" 
+    }
 }
+
 
 
 export default async function Page({ params }: { params: { id: string } }) {
@@ -53,7 +53,7 @@ export default async function Page({ params }: { params: { id: string } }) {
         return <h1>Not found</h1>;
     }
 
-    const pageUrl = `${process.env.PROD_URL}/blog/${params.id}`;
+    const pageUrl = `${process.env.SITE_URL}/blog/${params.id}`;
     const pageTitle = blog.title;
 
     return (
