@@ -18,7 +18,7 @@ export const metadata: Metadata = {
   openGraph:{
     title:"Esports Blog",
     url:process.env.SITE_URL,
-    siteName:"Daily blog",
+    siteName:"Esports Blog",
     images:"/og.png",
     type:"website"
 

@@ -22,7 +22,7 @@ export async function generateMetadata({params}:{params:{id:string}}){
         openGraph:{
             title:blog?.title,
             url:process.env.SITE_URL + "/blog/" + params.id,
-            siteName:"Daily blog",
+            siteName:"Esports blog",
             images:blog?.image_url,
             type:"website"
 
