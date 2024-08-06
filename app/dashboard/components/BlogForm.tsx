@@ -141,7 +141,7 @@ export default function BlogForm({
                 <div className={cn("p-2 w-full flex break-words gap-2", isPreview?"divide-x-0":"divide-x")}>
                 <Input placeholder="image url" {...field} className={cn("border-none text-lg font-medium leading-relaxed", isPreview?"w-0 p-0": "w-full lg:w-1/2")} /><div className={cn("lg:px-10", isPreview?"mx-auto w-full lg:w-4/5": "w-1/2 lg:block hidden")}>{!isPreview?
                 (<>
-                <p>
+                <p className="font-mono">
                   Click on Preview to see image
                 </p>
                 </>): (
